@@ -34,14 +34,4 @@
             this.messages.push(response);
             this.inputText = '';
         }
-
-        // async generateChatGPTResponse(prompt) {
-        // try {
-        //     const response = await generateResponse({ messageText: prompt });
-        //     console.log('responne pehla bar: '+response);          
-        //     return response;
-        // } catch (error) {
-        //     console.error('Error: Unable to generate response from ChatGPT.', error);
-        //     return 'Error: Unable to generate response from ChatGPT.';
-        // }
     }
