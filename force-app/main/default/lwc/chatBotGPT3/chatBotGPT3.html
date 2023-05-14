@@ -1,0 +1,24 @@
+<template>
+    <div class="chat-window">
+        <div class="chat-messages">
+            <template for:each={messages} for:item="message">
+                <template if:true={message.isSelf}>
+                    <div key={message.id} class="self-message">
+                    <div class="message-content">{message.content}</div>
+                </div>
+            </template>
+            <template if:false={message.isSelf}>
+                <div key={message.id} class="other-message">
+                    <div class="message-content">{message.content}</div>
+                </div>
+            </template>
+
+            </template>
+        </div>
+        <div class="chat-input">
+            <textarea value={inputText} oninput={handleInput} onkeydown={handleKeyDown}
+                placeholder="Type your message here..."></textarea>
+            <button onclick={handleSend}>Send</button>
+        </div>
+    </div>
+</template>
