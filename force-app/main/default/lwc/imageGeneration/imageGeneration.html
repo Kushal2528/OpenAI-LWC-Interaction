@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Get images from Open AI">
+        <lightning-button slot="actions" label="Submit" variant="brand" onclick={apiCall}></lightning-button>
+        <lightning-input onchange={getKeywords} style="width: 25%;">
+        </lightning-input>
+        <template if:true={imgData}>
+            <img src={imgData} style="height: 100%; width: 100%">
+        </template>
+    </lightning-card>
+    
+</template>

@@ -62,6 +62,36 @@ public with sharing class ChatGPTRestCall {
         return '';
     }
 
+
+    @AuraEnabled
+    public static List<String> getImages(String generateKey)
+    {
+        HttpRequest req = new HttpRequest();
+        req.setMethod('POST');
+        req.setEndpoint('https://api.openai.com/v1/images/generations');
+        String body='{ "prompt": "'+generateKey+'", "n": 1, "size": "512x512" }';
+        req.setHeader('Authorization', 'Bearer ' + System.label.chatGPTAPIKey);
+        req.setTimeout(1000*120);
+        req.setHeader('Content-Type', 'application/json');
+        req.setbody(body);
+        Http http = new Http();
+        HttpResponse res = http.send(req);
+        System.debug('response from api: '+res.getBody());
+        JSON2Apex parsedResponse=JSON2Apex.parse(res.getBody());
+        List<String> retUrl=new List<String>();
+        try{
+        for(JSON2Apex.Data d : parsedResponse.data)
+        {
+            retUrl.add(d.url);
+        }
+        }
+        catch(Exception e)
+        {
+            system.debug('error: '+e.getMessage());
+        }
+        return retUrl;
+    }
+
     /**
      * @description Custom exception class
      */
