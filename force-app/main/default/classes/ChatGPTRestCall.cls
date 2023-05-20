@@ -6,7 +6,7 @@ public with sharing class ChatGPTRestCall {
      * @description Method to generate response from ChatGPT
      */
     @AuraEnabled(cacheable=false)
-    public static String generateResponse(String messageText) {
+    public static String generateResponse(List<testWrapper> lstPrompts) {
         HttpRequest req = new HttpRequest();
         req.setEndpoint(ENDPOINT_URL);
         req.setMethod('POST');
@@ -15,23 +15,22 @@ public with sharing class ChatGPTRestCall {
         req.setHeader('Authorization', 'Bearer ' + API_KEY); // Add the API key to the request header
 
         // Set the request body
-        String prompt = 'You are a helpful assistant.\nUser: ' + messageText + '\nAssistant:';
-        System.debug(prompt); 
+        // String prompt = 'You are a helpful assistant.\nUser: ' + messageText + '\nAssistant:';
+        // System.debug(prompt); 
 
-        Map<String, Object> PromptBody = new Map<String, Object>();
-        PromptBody.put('role','user');
-        PromptBody.put('content',messageText);
+        // Map<String, Object> PromptBody = new Map<String, Object>();
+        // PromptBody.put('role','user');
+        // PromptBody.put('content',messageText);
 
-        List<Object> lstPrompts = new List<Object>();
-        lstPrompts.add(PromptBody);
+        // List<Object> lstPrompts = new List<Object>();
+        // lstPrompts.add(PromptBody);
 
         Map<String, Object> requestBody = new Map<String, Object>();
         requestBody.put('messages', lstPrompts);
         requestBody.put('model', 'gpt-3.5-turbo');
-        // requestBody.put('model', 'gpt-4');
-        //requestBody.put('max_tokens', 50);
-        //requestBody.put('n', 1);
-        //requestBody.put('stop', new List<String>{'\n'});
+        requestBody.put('max_tokens', 50);
+        requestBody.put('n', 1);
+        requestBody.put('stop', new List<String>{'\n'});
 
         req.setBody(JSON.serialize(requestBody));
         System.debug('Request Body: ' + req.getBody());
@@ -46,9 +45,7 @@ public with sharing class ChatGPTRestCall {
             if (choices.size() > 0) {
                 Map<String, Object> choice = (Map<String, Object>)choices.get(0);
                 Map<String,Object> mpMessages = (Map<String,Object>)choice.get('message');
-
                 String responseText = (String)mpMessages.get('content');
-
                 responseText = responseText != null ? responseText.trim() : '';
                 //system.debug('Response Text: ' + responseText);
                 return responseText;

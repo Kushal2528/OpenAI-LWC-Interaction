@@ -1,9 +1,10 @@
    import { LightningElement, track } from 'lwc';
-   import generateResponse from '@salesforce/apex/ChatGPTService.generateResponse';
+   import generateResponse from '@salesforce/apex/ChatGPTRestCall.generateResponse';
 
     export default class ChatBotGPT3 extends LightningElement {
         @track messages = [];
         @track inputText = '';
+        @track withPrevmessages=[];
 
         handleInput(event) {
             this.inputText = event.target.value;
@@ -25,7 +26,14 @@
                 isSelf: true // or false, depending on whether the message is from the current user
             };
             this.messages.push(message);
-            const gpt4Response=await generateResponse({ messageText: this.inputText });
+
+        /******************************************************* */
+            let userPrompt={role:"user", content: this.inputText};
+            this.withPrevmessages.push(userPrompt);
+            const gpt4Response=await generateResponse({ lstPrompts: this.withPrevmessages });
+            let gptPrompt={role:"assistant", content: gpt4Response};
+            this.withPrevmessages.push(gptPrompt);
+        /******************************************************* */            
             console.log('Aa gelo bhai: '+gpt4Response);
             const response ={
                 id: this.messages.length,
