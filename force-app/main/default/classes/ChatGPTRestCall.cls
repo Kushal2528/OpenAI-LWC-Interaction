@@ -28,7 +28,7 @@ public with sharing class ChatGPTRestCall {
         Map<String, Object> requestBody = new Map<String, Object>();
         requestBody.put('messages', lstPrompts);
         requestBody.put('model', 'gpt-3.5-turbo');
-        requestBody.put('max_tokens', 50);
+        //requestBody.put('max_tokens', 50);
         requestBody.put('n', 1);
         requestBody.put('stop', new List<String>{'\n'});
 
