@@ -16,7 +16,9 @@
             }
         }
 
-        async handleSend() {
+        async handleSend() 
+        {
+            this.refs.inputWindow.value='';
             const message = {
                 id: this.messages.length,
                 content: this.inputText,
