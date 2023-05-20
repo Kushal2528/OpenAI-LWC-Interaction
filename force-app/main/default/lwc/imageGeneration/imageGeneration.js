@@ -1,10 +1,20 @@
 import { LightningElement,track,api } from 'lwc';
 import getImages from '@salesforce/apex/ChatGPTRestCall.getImages';
+import noHeader from '@salesforce/resourceUrl/NoHeader';
+import {loadStyle} from "lightning/platformResourceLoader";
 
 export default class ImageGeneration extends LightningElement 
 {
     @track keyword;
     @track imgData;
+    @track showSpinner=false;
+
+    connectedCallback() 
+    {
+        loadStyle(this, noHeader)
+        .then(result => {});
+    }
+
     getKeywords(event)
     {
         this.keyword=event.target.value;
@@ -12,6 +22,7 @@ export default class ImageGeneration extends LightningElement
     }
     apiCall()
     {
+        this.showSpinner=true;
         console.log('Inside apicall with key value: '+this.keyword);
         getImages({generateKey:this.keyword}).then(result=>{
                 this.imgData=result[0];
@@ -21,14 +32,10 @@ export default class ImageGeneration extends LightningElement
             this.imgData='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png';
         });
     }
+    handleImageLoad()
+    {
+        this.showSpinner=false;
+        this.refs.textInput.value='';
+    }
 
-    handleLoad() {
-    getImages({generateKey:this.keyword})
-        .then(result => {
-            this.contacts = result;
-        })
-        .catch(error => {
-            this.error = error;
-        });
-}
 }

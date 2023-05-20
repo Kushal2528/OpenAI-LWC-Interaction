@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    margin-right: 10px;
+    margin-left: 15px;
+    width: 75%;
+    /* Adjust the margin as needed */
+}
+

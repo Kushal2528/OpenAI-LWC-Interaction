@@ -1,11 +1,23 @@
 <template>
-    <lightning-card title="Get images from Open AI">
-        <lightning-button slot="actions" label="Submit" variant="brand" onclick={apiCall}></lightning-button>
-        <lightning-input onchange={getKeywords} style="width: 25%;">
-        </lightning-input>
-        <template if:true={imgData}>
-            <img src={imgData} style="height: 100%; width: 100%">
-        </template>
+    <lightning-card title="Image generation">
+        <div style="height: 300px;">
+            <div class="container">
+                <lightning-input lwc:ref="textInput" class="input" onchange={getKeywords}></lightning-input>
+                <lightning-button style="margin-top: 3px" label="Submit" variant="brand"
+                    onclick={apiCall}></lightning-button>
+                <div>
+                    <template if:true={showSpinner}>
+                        <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+                    </template>
+                </div>
+
+            </div>
+            <template if:true={imgData}>
+                <center>
+                    <img src={imgData} class="image" onload={handleImageLoad} style="overflow: hidden; margin-left: 15px; margin-top: 15px; 
+                    height:200px;">
+                </center>
+            </template>
+        </div>
     </lightning-card>
-    
 </template>
