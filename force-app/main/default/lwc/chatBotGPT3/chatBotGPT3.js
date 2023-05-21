@@ -14,7 +14,8 @@
             this.inputText = event.target.value;
         }
 
-        handleKeyDown(event) {
+        handleKeyDown(event) 
+        {
             if (event.keyCode === 13 && !event.shiftKey) {
                 event.preventDefault();
                 this.handleSend();
