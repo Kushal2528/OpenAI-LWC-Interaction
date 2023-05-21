@@ -1,4 +1,5 @@
-public with sharing class ChatGPTRestCall {
+public with sharing class ChatGPTRestCall 
+{
     private static final String API_KEY = System.label.chatGPTAPIKey; // Replace with your actual API key
     private static final String ENDPOINT_URL = 'https://api.openai.com/v1/chat/completions';
 
@@ -28,7 +29,7 @@ public with sharing class ChatGPTRestCall {
         Map<String, Object> requestBody = new Map<String, Object>();
         requestBody.put('messages', lstPrompts);
         requestBody.put('model', 'gpt-3.5-turbo');
-        //requestBody.put('max_tokens', 50);
+        requestBody.put('max_tokens', 50);
         requestBody.put('n', 1);
         requestBody.put('stop', new List<String>{'\n'});
 

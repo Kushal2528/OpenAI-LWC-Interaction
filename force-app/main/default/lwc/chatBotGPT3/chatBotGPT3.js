@@ -46,13 +46,12 @@
         {
             this.gpt4Response=await generateResponsev1({ messageText: this.inputText });
         }            
-            console.log('Aa gelo bhai: '+this.gpt4Response);
+            console.log('GPT String response: '+this.gpt4Response);
             const response ={
                 id: this.messages.length,
                 content: this.gpt4Response,
                 isSelf: false
             };
-            console.log('ResponswaContentwa: '+response.content);
             this.messages.push(response);
             this.inputText = '';
         }
