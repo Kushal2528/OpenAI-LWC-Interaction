@@ -34,13 +34,11 @@
             let gptPrompt={role:"assistant", content: gpt4Response};
             this.withPrevmessages.push(gptPrompt);
         /******************************************************* */            
-            console.log('Aa gelo bhai: '+gpt4Response);
             const response ={
                 id: this.messages.length,
                 content: gpt4Response,
                 isSelf: false
             };
-            console.log('ResponswaContentwa: '+response.content);
             this.messages.push(response);
             this.inputText = '';
         }
