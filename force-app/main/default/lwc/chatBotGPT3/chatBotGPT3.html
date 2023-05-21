@@ -1,36 +1,38 @@
 <template>
-    <lightning-card title="GPT3.5 - Chat Bot">
-        <lightning-combobox name="progress" value={value} placeholder="Select Version" options={options}
-            onchange={handleChange} style="width: 25%; margin-left: 10px; margin-right: 10px; margin-bottom:5px">
-        </lightning-combobox>
-        <div>
-            <template if:true={showSpinner}>
-                <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
-            </template>
-        </div>
-
-
-        <div class="chat-window">
-            <div class="chat-messages">
-                <template for:each={messages} for:item="message">
-                    <template if:true={message.isSelf}>
-                        <div key={message.id} class="self-message">
-                            <div class="message-content">{message.content}</div>
-                        </div>
-                    </template>
-                    <template if:false={message.isSelf}>
-                        <div key={message.id} class="other-message">
-                            <div class="message-content">{message.content}</div>
-                        </div>
-                    </template>
-
+    <div style="height: 350px; width:600px">
+        <lightning-card title="GPT3.5 powered Chat Bot">
+            <lightning-combobox name="progress" value={value} placeholder="Select Version" options={options}
+                onchange={handleChange} style="margin-left: 10px; margin-right: 10px; margin-bottom:5px; float:right">
+            </lightning-combobox>
+            <div>
+                <template if:true={showSpinner}>
+                    <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
                 </template>
             </div>
-            <div class="chat-input">
-                <textarea lwc:ref="inputWindow" value={inputText} oninput={handleInput} onkeydown={handleKeyDown}
-                    placeholder="Type your message here..."></textarea>
-                <button onclick={handleSend}>Send</button>
+
+
+            <div class="chat-window">
+                <div class="chat-messages">
+                    <template for:each={messages} for:item="message">
+                        <template if:true={message.isSelf}>
+                            <div key={message.id} class="self-message">
+                                <div class="message-content">{message.content}</div>
+                            </div>
+                        </template>
+                        <template if:false={message.isSelf}>
+                            <div key={message.id} class="other-message">
+                                <div class="message-content">{message.content}</div>
+                            </div>
+                        </template>
+
+                    </template>
+                </div>
+                <div class="chat-input">
+                    <textarea lwc:ref="inputWindow" value={inputText} oninput={handleInput} onkeydown={handleKeyDown}
+                        placeholder="Type your message here..."></textarea>
+                    <button onclick={handleSend}>Send</button>
+                </div>
             </div>
-        </div>
-    </lightning-card>
+        </lightning-card>
+    </div>
 </template>
