@@ -1,4 +1,4 @@
-   import { LightningElement, track } from 'lwc';
+import { LightningElement, track } from 'lwc';
    import generateResponse from '@salesforce/apex/ChatGPTRestCall.generateResponse';
    import generateResponsev1 from '@salesforce/apex/ChatGPTService.generateResponse';
 
@@ -58,10 +58,11 @@
         }
 
 
-        get options() {
+        get options() 
+        {
             return [
-            { label: 'Version 1', value: 'v1' },
-            { label: 'Version 2', value: 'v2' }
+            { label: 'Single Prompt', value: 'v1' },
+            { label: 'Series of Prompts', value: 'v2' }
             ];
         }
 
