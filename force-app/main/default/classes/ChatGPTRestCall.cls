@@ -1,5 +1,5 @@
 public with sharing class ChatGPTRestCall {
-    private static final String API_KEY = System.label.chatGPTAPIKey; // Replace with your actual API key
+    private static final String API_KEY = System.label.chatGPTAPIKey; 
     private static final String ENDPOINT_URL = 'https://api.openai.com/v1/chat/completions';
 
     /**
